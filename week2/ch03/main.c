@@ -15,6 +15,7 @@ void DestroyTable(HashTable H);
 Position Find(ElementType Key,HashTable H);
 void Insert(ElementType Key,HashTable H);
 ElementType Retrieve(Position P);
+void Delete(ElementType Key,HashTable H)；
 
 #endif  /* _HashSep_H */
 
@@ -177,6 +178,27 @@ void Insert(ElementType Key,HashTable H)
 	printf("Insert calls\n");
 }
 
+void Delete(ElementType Key,HashTable H)
+{
+	Position P,TmpCell;
+	List L;
+	TmpCell=NULL;
+
+	L = H->TheLists[Hash(Key,H->TableSize)];
+	P = L;
+	while(P->Next!=NULL && P->Next->Element!=Key)
+		P=P->Next;
+	if(P->Next==NULL)
+		printf("don't find %d     ",Key);
+	else
+	{
+		TmpCell=P->Next;
+		P->Next=P->Next->Next;
+		free(TmpCell);
+	}
+	printf("delete calls\n");
+}
+
 /*******************.c文件**********************/
 
 #include<stdio.h>
@@ -198,11 +220,25 @@ int main()
 		element=rand()%100;
 		Insert(element,H);
 	}
+	Insert(20,H);
 	P=Find(2,H);
 	if(P!=NULL)
 	{
 		element=Retrieve(P);
-		printf("%d\n",element);
+		printf("\n找到了%d这个元素\n",element);
+	}
+	P=Find(20,H);
+	if(P!=NULL)
+	{
+		element=Retrieve(P);
+		printf("\n找到了%d这个元素\n",element);
+	}
+	Delete(20,H);
+	P=Find(20,H);
+	if(P!=NULL)
+	{
+		element=Retrieve(P);
+		printf("找到了%d这个元素\n",element);
 	}
 
 	DestroyTable(H);
