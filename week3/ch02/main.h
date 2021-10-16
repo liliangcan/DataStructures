@@ -8,7 +8,6 @@
 /* make sure to not use the old leftist heaps */
 
 PriorityQueue Initialize(void);
-int IsEmpty(H);
 ElementType FindMin(PriorityQueue H);
 int IsEmpty(PriorityQueue H);
 PriorityQueue Merge(PriorityQueue H1,PriorityQueue H2);
