@@ -1,3 +1,5 @@
+/*************.h文件*****************/
+
 #ifdef _BinQueue_H
 
 int IsEmpty(BinQueue H);
