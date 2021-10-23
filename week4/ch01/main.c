@@ -4,33 +4,10 @@
 
 typedef int ElementType;
 #define Size 15
-#define Cutoff 3
 
 void FatalError(char *s)
 {
     printf("%s\n",s);
-}
-
-void InsertionSort(ElementType A[],int N)
-{
-	int j,P;
-
-	ElementType Tmp;
-	for(P=1;P<N;P++)
-	{
-		Tmp=A[P];
-		for(j=P;j>0 && A[j-1]>Tmp;j--)
-			A[j]=A[j-1];
-		A[j]=Tmp;
-	}
-}
-
-void Swap(ElementType *a,ElementType *b)
-{
-	ElementType Tmp;
-	Tmp=*a;
-	*a=*b;
-	*b=Tmp;
 }
 
 void Merge(ElementType A[],ElementType TmpArray[],int Lpos,int Rpos,int RightEnd)
@@ -81,6 +58,14 @@ void MergeSort(ElementType A[],int N)
 	}
 	else
 		FatalError("No space for tmp array!!!");
+}
+
+void Print(ElementType A[],int N)
+{
+	int i;
+	for(i=0;i<N;i++)
+		printf("%d ",A[i]);
+	printf("\n");
 }
 
 int main()
