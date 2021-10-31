@@ -9,12 +9,7 @@
 #define UNBUILDING 0
  
 int x_i=0;	
- 
-int cmp(const void * a, const void * b)			//排序
-{
-    return *(int*)a - *(int*)b;
-}
- 
+
 int Empty(int **a,int n)
 {
     int i;
@@ -42,7 +37,12 @@ int DeleteMax(int **a,int n)
     a[1][max_i]=BUILDED;
     return max;
 }
- 
+
+int cmp(const void * a, const void * b)			//排序
+{
+    return *(int*)a - *(int*)b;
+} 
+
 int FindMax(int **a,int n)
 {
     int i,max=0;
@@ -141,8 +141,8 @@ int Place(int *x,int **a,int n,int pos)
         for(i=0;i<pos;i++)
 		{
             k=0;
-            for(j=0;j<n;j++)
-			{								//是否可以重排
+            for(j=0;j<n;j++)					//是否可以重排
+			{								
                 if(a[0][j]==abs(Dmax-x[i]) && a[1][j]==UNBUILDING)
 				{
                     k=1;
@@ -155,8 +155,8 @@ int Place(int *x,int **a,int n,int pos)
 			{
                 break;
             }
-            if(k==1 && i==pos-1)
-			{									//---递归进入重排
+            if(k==1 && i==pos-1)					//递归进入重排
+			{									
                 x[pos++]=Dmax;
                 Found=Place(x,a,n,pos);
                 t = 1;
@@ -194,26 +194,26 @@ int Turnpike(int *x,int **a,int n)
  
 int main()
 {
-    int i,j,n;
-	int *x;							//重建数组；
+    int i,j,n=15;
+	int *x;
 	int **a=malloc(2*sizeof(int*));
-	n=20;
+	int Array[]={1,2,2,2,3,3,3,4,5,5,5,6,7,8,10};   //书上能成功的例子
+
 	x=malloc((n/2+1)* sizeof(int));
-	
-//    scanf("%d",&n);
     
     for(i=0;i<2;i++)
         a[i]=malloc(n*sizeof(int));
+	
     for(j=0;j<n;j++)
 	{
-        scanf("%d",&a[0][j]);
+		a[0][j]=Array[j];
         a[1][j]=UNBUILDING;
     }
  
     if(Turnpike(&x[0],a,n))					//重排成功
         printf("Good! ok\n");
     else
-        printf("No! error\n");
+        printf("No!\n");
  
     for(i=0;i<n;i++)					//检测是否完全重排
         printf("%d ",a[1][i]);
@@ -222,6 +222,7 @@ int main()
     qsort(x,x_i,sizeof(int*),cmp);			//排序
     for(i=0;i<x_i;i++)
         printf("%d ",x[i]);
+	
     printf("\n");
     return 0;
 }
