@@ -1,16 +1,18 @@
 #include<stdio.h>
 
-#define Infinity 999999
-
+#define Infinity 99999
 #define N 10
 
-void OptMatrix(const long C[],int N,TwoDimArray **M,TwoDimArray **LastChange,int N,int N,int N,int N)
+typedef int TowDimArray[N][N];
+
+void OptMatrix(const long C[],int N,TowDimArray M,TowDimArray LastChange)
 {
 	int i,k,Left,Right;
 	long ThisM;
 
 	for(Left=1;Left<=N;Left++)
 		M[Left][Left]=0;
+
 	for(k=1;k<N;k++)         //k is right-left
 		for(Left=1;Left<=N-k;Left++)
 		{
@@ -19,8 +21,8 @@ void OptMatrix(const long C[],int N,TwoDimArray **M,TwoDimArray **LastChange,int
 			M[Left][Right]=Infinity;
 			for(i=Left;i<Right;i++)
 			{
-				ThisM=M[Left][i]+M[i+1][Right]+C[Left-1]*C[i]*C[Right];
-				if(ThisM<M[Left][Right])
+				ThisM = M[Left][i] + M[i+1][Right] + C[Left-1]*C[i]*C[Right];
+				if(ThisM < M[Left][Right])
 				{
 					//update min
 					M[Left][Right]=ThisM;
@@ -33,18 +35,16 @@ void OptMatrix(const long C[],int N,TwoDimArray **M,TwoDimArray **LastChange,int
 int main()
 {
 	int i,j;
-	TwoDimArray M[N][N];
-	TwoDimArray LastChange[N][N];
-	int C[]={43,45,76,78,34,65,44,55,66,77};
+	int M[N][N],LastChange[N][N];
+	long C[]={43,45,76,78,34,65,44,55,66,77};
 
-	for(i=0;i<N;i++)
+/*	for(i=0;i<N;i++)
 		for(j=0;j<N;j++)
 		{
 			M[i][j]=0;
 			LastChange[i][j]=0;
-		}
+		}*/
 
-	OptMatrix(C,N,M,LastChange,N,N,N,N);
-
+	OptMatrix(C,N,M,LastChange);
 	return 0;
 }
