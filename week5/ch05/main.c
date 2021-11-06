@@ -1,11 +1,12 @@
 #include<stdio.h>
 
 #define Infinity 99999
-#define N 10
+//#define N 10
+#define N 4
 
 typedef int TowDimArray[N][N];
 
-void OptMatrix(const long C[],int N,TowDimArray M,TowDimArray LastChange)
+void OptMatrix(const long C[],TowDimArray M,TowDimArray LastChange)
 {
 	int i,k,Left,Right;
 	long ThisM;
@@ -13,7 +14,7 @@ void OptMatrix(const long C[],int N,TowDimArray M,TowDimArray LastChange)
 	for(Left=1;Left<=N;Left++)
 		M[Left][Left]=0;
 
-	for(k=1;k<N;k++)         //k is right-left
+	for(k=1 ;k<N ;k++)         //k is right-left
 		for(Left=1;Left<=N-k;Left++)
 		{
 			//for each position
@@ -36,15 +37,17 @@ int main()
 {
 	int i,j;
 	int M[N][N],LastChange[N][N];
-	long C[]={43,45,76,78,34,65,44,55,66,77};
+//	long C[]={3,4,5,6,7,8,9,10,11,12,13};
+	long C[]={50,10,40,30,5};
 
-/*	for(i=0;i<N;i++)
-		for(j=0;j<N;j++)
-		{
-			M[i][j]=0;
-			LastChange[i][j]=0;
-		}*/
+	OptMatrix(C,M,LastChange);
+	for(i=1;i<=N;i++)
+	{
+		for(j=i;j<=N;j++)
+			printf("%d ",M[i][j]);
+		printf("\n");
+	}
+	printf("%d\n ",M[N-1][N]);			//这个位置的数值有问题
 
-	OptMatrix(C,N,M,LastChange);
 	return 0;
 }
